@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:err_rss_reader/core/errors/exceptions.dart';
 import 'package:err_rss_reader/core/errors/failure.dart';
 import 'package:err_rss_reader/core/utils/typedef.dart';
-import 'package:err_rss_reader/data/datasources/photos_remote_data_source.dart';
+import 'package:err_rss_reader/data/datasources/article_remote_data_source.dart';
 import 'package:err_rss_reader/domain/entity/article.dart';
 import 'package:err_rss_reader/domain/repositories/articles_repository.dart';
 import 'package:err_rss_reader/domain/usecases/get_articles.dart';

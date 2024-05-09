@@ -1,27 +1,16 @@
-import 'dart:convert';
-
 import 'package:err_rss_reader/core/errors/exceptions.dart';
 import 'package:err_rss_reader/core/utils/app_consts.dart';
 import 'package:err_rss_reader/data/models/article_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:xml/xml.dart' as xml;
 
 abstract class ArticlesRemoteDataSource {
   Future<List<ArticleModel>> getArticles({int page = 1});
 }
 
 const String perPage = "5";
-const kApiKey = '0a596ff1adab5442a354557c0531a732';
-const kGetPhotosEndpoint = '/services/rest/';
-const Map<String, String> kGetPhotosParams = {
-  'api_key': kApiKey,
-  'method': 'flickr.photos.getRecent',
-  // 'user_id': '135168164@N03',
-  'format': 'json',
-  'nojsoncallback': '1',
-  'extras': 'url_s, owner_name',
-  'per_page': perPage,
-};
+const String rss = '/rss';
 
 class ArticlesRemoteDataSrcImpl implements ArticlesRemoteDataSource {
   const ArticlesRemoteDataSrcImpl(this._client);
@@ -31,9 +20,7 @@ class ArticlesRemoteDataSrcImpl implements ArticlesRemoteDataSource {
   @override
   Future<List<ArticleModel>> getArticles({int page = 1}) async {
     try {
-      final uri = Uri.https(kBaseUrl, kGetPhotosEndpoint,
-          {...kGetPhotosParams, 'page': page.toString()});
-      final response = await _client.get(uri);
+      final response = await _client.get(Uri.https(kMainUrl, rss));
       debugPrint('get articles ======  ${response.body}');
       if (response.statusCode != 200) {
         throw APIException(
@@ -41,11 +28,11 @@ class ArticlesRemoteDataSrcImpl implements ArticlesRemoteDataSource {
           statusCode: response.statusCode,
         );
       }
-      final Map<String, dynamic> decodedJson = json.decode(response.body);
-      final List<dynamic> articles = decodedJson['articles']['article'];
-      return articles
-          .map((articleData) => ArticleModel.fromMap(articleData))
-          .toList();
+
+      final xmlDocument = xml.XmlDocument.parse(response.body);
+      final items = xmlDocument.findAllElements('item');
+
+      return items.map((item) => ArticleModel.fromXml(item)).toList();
     } on APIException catch (e) {
       throw APIException(message: e.message, statusCode: e.statusCode);
     } catch (e) {

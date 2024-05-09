@@ -1,5 +1,5 @@
 class AppStrings {
   static const String home = 'Home';
-  static const String errEE = 'ERR.EE';
-// static const String loadingPhotos = 'Loading Photos';
+  static const String errEE = 'err.ee';
+  static const String loadingArticles = 'Loading';
 }

@@ -5,6 +5,7 @@ import 'package:err_rss_reader/core/router/app_router.dart';
 import 'package:err_rss_reader/presentation/style/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -46,12 +47,10 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 100, right: 100),
-              child: Image.asset(
-                AppImages.logo,
-                fit: BoxFit.cover,
-              ),
+            SvgPicture.asset(
+              AppImages.logoSVG,
+              height: 100,
+              fit: BoxFit.cover,
             ),
             const SizedBox(height: 20),
             const CircularProgressIndicator(

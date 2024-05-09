@@ -2,65 +2,77 @@ import 'dart:convert';
 
 import 'package:err_rss_reader/core/utils/typedef.dart';
 import 'package:err_rss_reader/domain/entity/article.dart';
+import 'package:xml/xml.dart' as xml;
 
 class ArticleModel extends Article {
   const ArticleModel({
     required super.id,
-    required super.owner,
-    required super.time,
+    required super.pubDate,
     required super.title,
-    required super.desc,
-    required super.url,
+    required super.description,
+    required super.image,
   });
 
   const ArticleModel.empty()
       : this(
           id: '1',
-          owner: '_empty.ownername',
-          time: '_empty.time',
+          pubDate: '_empty.pubDate',
           title: '_empty.title',
-          desc: '_empty.desc',
-          url: '_empty.url',
+          description: '_empty.description',
+          image: '_empty.image',
         );
 
   factory ArticleModel.fromJson(String source) =>
       ArticleModel.fromMap(jsonDecode(source) as DataMap);
 
+  factory ArticleModel.fromXml(xml.XmlElement element) {
+    final pubDate = element.findElements('pubDate').first.text;
+    final title = element.findElements('title').first.text;
+    final description = element.findElements('description').first.text;
+    final link = element.findElements('link').first.text;
+    final image =
+        element.findElements('media:thumbnail').first.getAttribute('url');
+
+    return ArticleModel(
+      id: Uri.parse(link).pathSegments[0],
+      pubDate: pubDate,
+      title: title,
+      description: description,
+      image: image ?? '',
+    );
+  }
+
   ArticleModel.fromMap(DataMap map)
       : this(
           id: map['id'] as String,
-          owner: map['ownername'] as String,
-          time: map['time'] as String,
+          pubDate: map['pubDate'] as String,
           title: map['title'] as String,
-          desc: map['desc'] as String,
-          url: map['url_s'] as String,
+          description: map['description'] as String,
+          image: map['media:thumbnail'] as String,
         );
 
   ArticleModel copyWith({
     String? id,
-    String? owner,
-    String? time,
+    String? pubDate,
     String? title,
-    String? desc,
-    String? url,
+    String? description,
+    String? image,
   }) {
     return ArticleModel(
       id: id ?? this.id,
-      owner: owner ?? this.owner,
-      time: time ?? this.time,
+      pubDate: pubDate ?? this.pubDate,
       title: title ?? this.title,
-      desc: desc ?? this.desc,
-      url: url ?? this.url,
+      description: description ?? this.description,
+      image: image ?? this.image,
     );
   }
 
   DataMap toMap() => {
         'id': id,
-        'ownername': owner,
-        'time': time,
+        'pubDate': pubDate,
         'title': title,
-        'desc': desc,
-        'url_s': url,
+        'description': description,
+        'image': image,
       };
 
   String toJson() => jsonEncode(toMap());
