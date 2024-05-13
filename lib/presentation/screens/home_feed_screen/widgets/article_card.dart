@@ -2,25 +2,25 @@ import 'package:err_rss_reader/presentation/style/app_colors.dart';
 import 'package:err_rss_reader/presentation/style/app_text_style.dart';
 import 'package:flutter/material.dart';
 
-class ArticleForm extends StatelessWidget {
-  const ArticleForm({
+class ArticleCard extends StatelessWidget {
+  const ArticleCard({
     super.key,
     required this.image,
     required this.title,
     required this.pubDate,
+    required this.onTap,
   });
 
   final String image;
   final String title;
   final String pubDate;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(
-        //   builder: (context) => FullScreenPhoto(photoUrl: image),
-        // ));
+        onTap();
       },
       child: Container(
         padding: const EdgeInsets.all(15),

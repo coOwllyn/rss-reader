@@ -32,7 +32,8 @@ class ArticleDetailsRemoteDataSrcImpl
         );
       }
       final Map<String, dynamic> decodedJson = json.decode(response.body);
-      final articleData = decodedJson['article'];
+      final articleData = decodedJson['content'];
+      debugPrint('article data ==== $articleData');
       return ArticleDetailsModel.fromMap(articleData);
     } on APIException catch (e) {
       throw APIException(message: e.message, statusCode: e.statusCode);

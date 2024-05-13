@@ -20,7 +20,6 @@ class HomeFeedScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.bgLight,
       appBar: AppBar(
-        // title: const Text(AppStrings.errEE),
         title: SvgPicture.asset(
           AppImages.logoSVG,
           fit: BoxFit.fitHeight,
