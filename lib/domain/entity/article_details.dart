@@ -7,7 +7,7 @@ class ArticleDetails extends Equatable {
     required this.pubDate,
     required this.title,
     required this.description,
-    required this.link,
+    required this.image,
   });
 
   const ArticleDetails.empty()
@@ -17,7 +17,7 @@ class ArticleDetails extends Equatable {
           pubDate: '_empty.pubDate',
           title: '_empty.title',
           description: '_empty.description',
-          link: '_empty.link',
+          image: '_empty.image',
         );
 
   final String id;
@@ -25,7 +25,7 @@ class ArticleDetails extends Equatable {
   final String pubDate;
   final String title;
   final String description;
-  final String link;
+  final String image;
 
   @override
   List<Object?> get props => [
@@ -34,6 +34,6 @@ class ArticleDetails extends Equatable {
         pubDate,
         title,
         description,
-        link,
+        image,
       ];
 }
