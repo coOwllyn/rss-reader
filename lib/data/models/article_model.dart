@@ -26,10 +26,10 @@ class ArticleModel extends Article {
       ArticleModel.fromMap(jsonDecode(source) as DataMap);
 
   factory ArticleModel.fromXml(xml.XmlElement element) {
-    final pubDate = element.findElements('pubDate').first.text;
-    final title = element.findElements('title').first.text;
-    final description = element.findElements('description').first.text;
-    final link = element.findElements('link').first.text;
+    final pubDate = element.findElements('pubDate').first.innerText;
+    final title = element.findElements('title').first.innerText;
+    final description = element.findElements('description').first.innerText;
+    final link = element.findElements('link').first.innerText;
     final image =
         element.findElements('media:thumbnail').first.getAttribute('url');
 

@@ -23,10 +23,13 @@ class ArticleForm extends StatelessWidget {
         // ));
       },
       child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         alignment: Alignment.center,
-        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black26),
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
         width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
