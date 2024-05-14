@@ -29,3 +29,7 @@ class FetchMoreArticles extends ArticlesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class RefreshArticles extends ArticlesEvent {
+  const RefreshArticles();
+}

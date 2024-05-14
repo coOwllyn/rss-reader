@@ -25,3 +25,12 @@ class APIFailure extends Failure {
   APIFailure.fromException(APIException exception)
       : this(message: exception.message, statusCode: exception.statusCode);
 }
+
+class EmptyDBFailure extends Failure {
+  const EmptyDBFailure() : super(message: "Database is empty", statusCode: 404);
+}
+
+class DBWriteFailure extends Failure {
+  const DBWriteFailure()
+      : super(message: "Error writing to local DB", statusCode: 500);
+}

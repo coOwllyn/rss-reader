@@ -48,7 +48,7 @@ class _PhotoListState extends State<ArticleList> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        articlesBloc.add(const LoadArticlesEvent());
+        articlesBloc.add(const RefreshArticles());
       },
       color: AppColors.blueMain,
       backgroundColor: AppColors.bgLight,
